@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nikkah Invitation — Ahmad & Yasmin</title>
+  <style>
+    :root{
+      --accent:#e5d9a8; /* soft gold */
+      --text:#ffffff;
+    }
+    html,body{
+      margin:0;
+      height:100%;
+      background:#000;
+      color:var(--text);
+      font-family: "Georgia", "Times New Roman", serif;
+      overflow:hidden;
+    }
+    #matrix{
+      position:fixed;
+      inset:0;
+      display:block;
+      z-index:0;
+      background:#000;
+    }
+    .overlay{
+      position:fixed;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      z-index:1;
+      text-align:center;
+      padding:24px;
+      pointer-events:none;
+    }
+    .card{
+      max-width:760px;
+      backdrop-filter: blur(2px);
+    }
+    h1,h2,h3,p{ margin:0.5rem 0; }
+    .bismillah{
+      font-size:1rem;
+      letter-spacing:0.06em;
+      opacity:0.9;
+    }
+    .headline{
+      font-size:clamp(28px, 6vw, 56px);
+      line-height:1.1;
+      margin-top:0.25rem;
+      color:var(--accent);
+      text-shadow:0 0 14px rgba(229,217,168,0.25);
+    }
+    .sub{
+      font-size:clamp(14px, 3.2vw, 20px);
+      opacity:0.95;
+    }
+    .names{
+      font-size:clamp(22px, 5.4vw, 44px);
+      letter-spacing:0.03em;
+    }
+    .details{
+      font-size:clamp(14px, 3.3vw, 18px);
+      opacity:0.96;
+    }
+    .dua{
+      font-size:clamp(13px, 3vw, 16px);
+      opacity:0.9;
+      margin-top:0.5rem;
+    }
+    .divider{
+      width:120px;
+      height:1px;
+      margin:10px auto;
+      background:linear-gradient(90deg, transparent, var(--accent), transparent);
+    }
+    .footer{
+      position:fixed;
+      bottom:10px;
+      left:0; right:0;
+      text-align:center;
+      font-size:12px;
+      opacity:0.5;
+      z-index:2;
+      pointer-events:none;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="matrix" aria-hidden="true"></canvas>
+
+  <div class="overlay">
+    <div class="card">
+      <div class="bismillah">بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</div>
+      <div class="sub">With the blessings of Allah (SWT), you are cordially invited to the Nikkah of</div>
+      <h1 class="names">Ahmad &amp; Yasmin</h1>
+      <div class="divider"></div>
+      <p class="details"><strong>Date:</strong> Saturday, 20 December 2025</p>
+      <p class="details"><strong>Time:</strong> 9:00 AM</p>
+      <p class="details"><strong>Venue:</strong> Ardbennie Masjid, [Harare]</p>
+      <p class="dua">“And of His signs is that He created for you spouses from among yourselves that you may find tranquility in them,
+      and He placed between you affection and mercy.” — Qur’an 30:21</p>
+      <p class="dua">Kindly grace the occasion with your presence and duas.</p>
+      <p class="details"><strong>RSVP:</strong> +234-000-000-0000</p>
+    </div>
+  </div>
+
+  <div class="footer">Nikkah Invitation — Ahmad &amp; Yasmin</div>
+
+  <script>
+    const canvas = document.getElementById('matrix');
+    const ctx = canvas.getContext('2d');
+
+    function resize() {
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = Math.floor(innerWidth * dpr);
+      canvas.height = Math.floor(innerHeight * dpr);
+      canvas.style.width = innerWidth + 'px';
+      canvas.style.height = innerHeight + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      setup();
+    }
+
+    let fontSize = 16;
+    let columns = 0;
+    let drops = [];
+
+    function setup() {
+      fontSize = Math.max(14, Math.round(innerWidth / 60));
+      columns = Math.floor(innerWidth / fontSize);
+      drops = new Array(columns).fill(1);
+      ctx.font = fontSize + 'px monospace';
+    }
+
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789アァカサタナハマヤャラワン';
+
+    function draw() {
+      ctx.fillStyle = 'rgba(0,0,0,0.08)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      for (let i = 0; i < drops.length; i++) {
+        const char = chars.charAt(Math.floor(Math.random() * chars.length));
+        ctx.fillStyle = '#9be69b';
+        ctx.fillText(char, i * fontSize, drops[i] * fontSize);
+        ctx.fillStyle = '#0f0';
+        ctx.fillText(char, i * fontSize, drops[i] * fontSize - 1);
+
+        if (drops[i] * fontSize > innerHeight && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+        drops[i]++;
+      }
+      requestAnimationFrame(draw);
+    }
+
+    window.addEventListener('resize', resize, { passive: true });
+    resize();
+    draw();
+  </script>
+</body>
+</html>
