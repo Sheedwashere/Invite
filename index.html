@@ -6,7 +6,8 @@
   <title>Nikkah Invitation — Ahmad & Yasmin</title>
   <style>
     :root{
-      --accent:#e5d9a8; /* soft gold */
+      --gold:#FFD700;
+      --blue:#1E90FF;
       --text:#ffffff;
     }
     html,body{
@@ -45,20 +46,15 @@
       letter-spacing:0.06em;
       opacity:0.9;
     }
-    .headline{
-      font-size:clamp(28px, 6vw, 56px);
-      line-height:1.1;
-      margin-top:0.25rem;
-      color:var(--accent);
-      text-shadow:0 0 14px rgba(229,217,168,0.25);
+    .names{
+      font-size:clamp(26px, 6vw, 48px);
+      letter-spacing:0.03em;
+      color:var(--gold);
+      text-shadow:0 0 14px rgba(255,215,0,0.4);
     }
     .sub{
       font-size:clamp(14px, 3.2vw, 20px);
       opacity:0.95;
-    }
-    .names{
-      font-size:clamp(22px, 5.4vw, 44px);
-      letter-spacing:0.03em;
     }
     .details{
       font-size:clamp(14px, 3.3vw, 18px);
@@ -73,7 +69,7 @@
       width:120px;
       height:1px;
       margin:10px auto;
-      background:linear-gradient(90deg, transparent, var(--accent), transparent);
+      background:linear-gradient(90deg, transparent, var(--gold), transparent);
     }
     .footer{
       position:fixed;
@@ -96,13 +92,13 @@
       <div class="sub">With the blessings of Allah (SWT), you are cordially invited to the Nikkah of</div>
       <h1 class="names">Ahmad &amp; Yasmin</h1>
       <div class="divider"></div>
-      <p class="details"><strong>Date:</strong> Saturday, 20 December 2025</p>
-      <p class="details"><strong>Time:</strong> 9:00 AM</p>
-      <p class="details"><strong>Venue:</strong> Ardbennie Masjid, [Harare]</p>
+      <p class="details"><strong>Date:</strong> Saturday, 21 September 2025</p>
+      <p class="details"><strong>Time:</strong> 4:00 PM</p>
+      <p class="details"><strong>Venue:</strong> Grand Mosque Hall, [City]</p>
       <p class="dua">“And of His signs is that He created for you spouses from among yourselves that you may find tranquility in them,
       and He placed between you affection and mercy.” — Qur’an 30:21</p>
       <p class="dua">Kindly grace the occasion with your presence and duas.</p>
-      <p class="details"><strong>RSVP:</strong> +236 78 1818 947</p>
+      <p class="details"><strong>RSVP:</strong> +234-000-000-0000</p>
     </div>
   </div>
 
@@ -111,6 +107,9 @@
   <script>
     const canvas = document.getElementById('matrix');
     const ctx = canvas.getContext('2d');
+
+    let fontSize, columns, drops;
+    const words = ["Ahmad", "Yasmin", "Nikkah", "Love", "Duas", "Blessings"];
 
     function resize() {
       const dpr = window.devicePixelRatio || 1;
@@ -122,46 +121,34 @@
       setup();
     }
 
-    let fontSize = 16;
-    let columns = 0;
-    let drops = [];
-
     function setup() {
-      fontSize = Math.max(14, Math.round(innerWidth / 60));
+      fontSize = Math.max(18, Math.round(innerWidth / 15));
       columns = Math.floor(innerWidth / fontSize);
       drops = new Array(columns).fill(1);
-      ctx.font = fontSize + 'px monospace';
+      ctx.font = fontSize + "px monospace";
     }
 
-    const words = ["Ahmad", "Yasmin", "Nikkah", "Duas", "Love", "Blessings"];
-let drops = [];
+    function draw() {
+      ctx.fillStyle = "rgba(0,0,0,0.08)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-function setup() {
-  fontSize = Math.max(18, Math.round(innerWidth / 10)); // bigger so words fit
-  columns = Math.floor(innerWidth / fontSize);
-  drops = new Array(columns).fill(1);
-  ctx.font = fontSize + "px monospace";
-}
+      for (let i = 0; i < drops.length; i++) {
+        const word = words[Math.floor(Math.random() * words.length)];
 
-function draw() {
-  ctx.fillStyle = "rgba(0,0,0,0.08)";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
+        // Gold glow
+        ctx.fillStyle = "#FFD700";
+        ctx.fillText(word, i * fontSize, drops[i] * fontSize);
 
-  for (let i = 0; i < drops.length; i++) {
-    const word = words[Math.floor(Math.random() * words.length)];
-    ctx.fillStyle = "#FFD700";   // Gold (glow/highlight)
-ctx.fillText(word, i * fontSize, drops[i] * fontSize);
+        // Blue main
+        ctx.fillStyle = "#1E90FF";
+        ctx.fillText(word, i * fontSize, drops[i] * fontSize - 1);
 
-ctx.fillStyle = "#1E90FF";   // Dodger Blue (main text)
-ctx.fillText(word, i * fontSize, drops[i] * fontSize - 1);
-
-    if (drops[i] * fontSize > innerHeight && Math.random() > 0.975) {
-      drops[i] = 0;
-    }
-    drops[i]++;
-  }
-  requestAnimationFrame(draw);
-}  
+        if (drops[i] * fontSize > innerHeight && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+        drops[i]++;
+      }
+      requestAnimationFrame(draw);
     }
 
     window.addEventListener('resize', resize, { passive: true });
