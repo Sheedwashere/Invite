@@ -129,26 +129,29 @@
     }
 
     function draw() {
-      ctx.fillStyle = "rgba(0,0,0,0.08)";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = "rgba(0,0,0,0.08)";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      for (let i = 0; i < drops.length; i++) {
-        const word = words[Math.floor(Math.random() * words.length)];
+  for (let i = 0; i < drops.length; i++) {
+    const word = words[Math.floor(Math.random() * words.length)];
 
-        // Gold glow
-        ctx.fillStyle = "#FFD700";
-        ctx.fillText(word, i * fontSize, drops[i] * fontSize);
+    // Gold glow
+    ctx.fillStyle = "#FFD700";
+    ctx.fillText(word, i * fontSize, drops[i] * fontSize);
 
-        // Blue main
-        ctx.fillStyle = "#1E90FF";
-        ctx.fillText(word, i * fontSize, drops[i] * fontSize - 1);
+    // Green main
+    ctx.fillStyle = "#00FF00"; // neon green
+    ctx.fillText(word, i * fontSize, drops[i] * fontSize - 1);
 
-        if (drops[i] * fontSize > innerHeight && Math.random() > 0.975) {
-          drops[i] = 0;
-        }
-        drops[i]++;
-      }
-      requestAnimationFrame(draw);
+    if (drops[i] * fontSize > innerHeight && Math.random() > 0.975) {
+      drops[i] = 0;
+    }
+
+    // slower falling speed
+    drops[i] += 0.5;
+  }
+  requestAnimationFrame(draw);
+}
     }
 
     window.addEventListener('resize', resize, { passive: true });
