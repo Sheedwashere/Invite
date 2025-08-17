@@ -7,7 +7,7 @@
   <style>
     :root{
       --gold:#FFD700;
-      --blue:#1E90FF;
+      --green:#00FF00;
       --text:#ffffff;
     }
     html,body{
@@ -94,7 +94,7 @@
       <div class="divider"></div>
       <p class="details"><strong>Date:</strong> Saturday, 20 December 2025</p>
       <p class="details"><strong>Time:</strong> 9:00 AM</p>
-      <p class="details"><strong>Venue:</strong> Ardbennie Masjid, [Harare]</p>
+      <p class="details"><strong>Venue:</strong> Ardbennie Masjid, Harare</p>
       <p class="dua">“And of His signs is that He created for you spouses from among yourselves that you may find tranquility in them,
       and He placed between you affection and mercy.” — Qur’an 30:21</p>
       <p class="dua">Kindly grace the occasion with your presence and duas.</p>
@@ -109,7 +109,7 @@
     const ctx = canvas.getContext('2d');
 
     let fontSize, columns, drops;
-    const words = ["Ahmad", "Yasmin"];
+    const words = ["Ahmad", "Yasmin", "Nikkah", "Love", "Duas", "Blessings"];
 
     function resize() {
       const dpr = window.devicePixelRatio || 1;
@@ -129,29 +129,28 @@
     }
 
     function draw() {
-  ctx.fillStyle = "rgba(0,0,0,0.08)";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "rgba(0,0,0,0.08)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  for (let i = 0; i < drops.length; i++) {
-    const word = words[Math.floor(Math.random() * words.length)];
+      for (let i = 0; i < drops.length; i++) {
+        const word = words[Math.floor(Math.random() * words.length)];
 
-    // Gold glow
-    ctx.fillStyle = "#FFD700";
-    ctx.fillText(word, i * fontSize, drops[i] * fontSize);
+        // Gold glow
+        ctx.fillStyle = "#FFD700";
+        ctx.fillText(word, i * fontSize, drops[i] * fontSize);
 
-    // Green main
-    ctx.fillStyle = "#00FF00"; // neon green
-    ctx.fillText(word, i * fontSize, drops[i] * fontSize - 1);
+        // Green main
+        ctx.fillStyle = "#00FF00";
+        ctx.fillText(word, i * fontSize, drops[i] * fontSize - 1);
 
-    if (drops[i] * fontSize > innerHeight && Math.random() > 0.975) {
-      drops[i] = 0;
-    }
+        if (drops[i] * fontSize > innerHeight && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
 
-    // slower falling speed
-    drops[i] += 0.5;
-  }
-  requestAnimationFrame(draw);
-}
+        // slower falling speed
+        drops[i] += 0.5;
+      }
+      requestAnimationFrame(draw);
     }
 
     window.addEventListener('resize', resize, { passive: true });
