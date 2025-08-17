@@ -149,10 +149,11 @@ function draw() {
 
   for (let i = 0; i < drops.length; i++) {
     const word = words[Math.floor(Math.random() * words.length)];
-    ctx.fillStyle = "#9be69b";
-    ctx.fillText(word, i * fontSize, drops[i] * fontSize);
-    ctx.fillStyle = "#0f0";
-    ctx.fillText(word, i * fontSize, drops[i] * fontSize - 1);
+    ctx.fillStyle = "#FFD700";   // Gold (glow/highlight)
+ctx.fillText(word, i * fontSize, drops[i] * fontSize);
+
+ctx.fillStyle = "#1E90FF";   // Dodger Blue (main text)
+ctx.fillText(word, i * fontSize, drops[i] * fontSize - 1);
 
     if (drops[i] * fontSize > innerHeight && Math.random() > 0.975) {
       drops[i] = 0;
