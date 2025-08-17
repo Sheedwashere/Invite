@@ -133,25 +133,34 @@
       ctx.font = fontSize + 'px monospace';
     }
 
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789アァカサタナハマヤャラワン';
+    const words = ["Ahmad", "Yasmin", "Nikkah", "Duas", "Love", "Blessings"];
+let drops = [];
 
-    function draw() {
-      ctx.fillStyle = 'rgba(0,0,0,0.08)';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+function setup() {
+  fontSize = Math.max(18, Math.round(innerWidth / 10)); // bigger so words fit
+  columns = Math.floor(innerWidth / fontSize);
+  drops = new Array(columns).fill(1);
+  ctx.font = fontSize + "px monospace";
+}
 
-      for (let i = 0; i < drops.length; i++) {
-        const char = chars.charAt(Math.floor(Math.random() * chars.length));
-        ctx.fillStyle = '#9be69b';
-        ctx.fillText(char, i * fontSize, drops[i] * fontSize);
-        ctx.fillStyle = '#0f0';
-        ctx.fillText(char, i * fontSize, drops[i] * fontSize - 1);
+function draw() {
+  ctx.fillStyle = "rgba(0,0,0,0.08)";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        if (drops[i] * fontSize > innerHeight && Math.random() > 0.975) {
-          drops[i] = 0;
-        }
-        drops[i]++;
-      }
-      requestAnimationFrame(draw);
+  for (let i = 0; i < drops.length; i++) {
+    const word = words[Math.floor(Math.random() * words.length)];
+    ctx.fillStyle = "#9be69b";
+    ctx.fillText(word, i * fontSize, drops[i] * fontSize);
+    ctx.fillStyle = "#0f0";
+    ctx.fillText(word, i * fontSize, drops[i] * fontSize - 1);
+
+    if (drops[i] * fontSize > innerHeight && Math.random() > 0.975) {
+      drops[i] = 0;
+    }
+    drops[i]++;
+  }
+  requestAnimationFrame(draw);
+}  
     }
 
     window.addEventListener('resize', resize, { passive: true });
