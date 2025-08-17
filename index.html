@@ -152,6 +152,9 @@
 
         // slower falling speed
         drops[i] += 0.3;
+       
+    // One falling word every 3 seconds
+    setInterval(createDrop, 3000); 
       }
       requestAnimationFrame(draw);
     }
