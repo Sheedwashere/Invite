@@ -154,6 +154,8 @@
         drops[i] += 0.4;
        
     }
+      requestAnimationFrame(draw);
+    }
 
     window.addEventListener('resize', resize, { passive: true });
     resize();
